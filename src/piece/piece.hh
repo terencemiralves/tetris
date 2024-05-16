@@ -5,6 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 #include <vector>
+#include <cmath>
 
 /*
 * @brief holds all the types of pieces
@@ -35,7 +36,7 @@ class piece {
 
     //getters
         piece_type get_type();
-        std::vector<sf::Vector2f> get_cubes();
+        std::vector<std::pair<float, float>> get_cubes();
         bool get_in_place();
 
     //setter
@@ -59,10 +60,22 @@ class piece {
         * @brief delets all the cubes on a certain row updates all the cubes that were above if they placed
         * @param row the row where the elements have to be deleted
         */
-        void delete_row(float row);
+        void delete_row(int row);
+        /*
+        * @brief rotates the piece
+        */
+        void rotate();
+        /*
+        * @brief updates the piece
+        * @param dt the time that has passed since the last update
+        */
+        void update(float dt);
 
     private:
-        std::vector<sf::Vector2f> cubes;
+        std::vector<std::pair<float, float>> cubes;
         piece_type type;
         bool in_place;
+        float gravity;
+        float speed;
+        float min_speed;
 };

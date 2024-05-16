@@ -11,7 +11,9 @@ find_package(SFML 2.5 COMPONENTS graphics window system audio network REQUIRED)
 
 # Add the source files
 set(SOURCES
-    src/main.cc)
+    src/main.cc
+    src/game/game.cc
+    src/piece/piece.cc)
 
 # Create the executable and link SFML libraries
 add_executable(Tetris ${SOURCES})
