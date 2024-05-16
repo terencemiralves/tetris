@@ -16,10 +16,26 @@ class game {
         game();
         ~game() = default;
     //methods
+        /*
+        * @brief runs the main loop of the game
+        */
         void run();
+        /*
+        * @brief checks if there are any lines to delete, if there is updates the board and the pieces
+        */
         void check_lines();
+        /*
+        * @brief add a new player controlled piece
+        */
         void add_piece();
+        /*
+        * @brief draws the pieces
+        */
         void draw();
+        /*
+        * @brief checks if the player collided with the bottom of the window or with another piece
+        * @return true if the player collided with the bottom of the window or with another piece
+        */
         bool check_collision();
     private:
         std::vector<piece> pieces;
