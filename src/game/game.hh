@@ -37,9 +37,16 @@ class game {
         * @return true if the player collided with the bottom of the window or with another piece
         */
         bool check_collision();
+        /*
+        * @brief Gives back the coordinate of the player's piece if he was to continue to go down
+        * @return the coordinates of the player's piece if he was to continue to go down
+        */
+        std::vector<std::pair<float, float>> get_bottom_player_piece();
     private:
         std::vector<piece> pieces;
         std::vector<std::vector<int>> board;
         sf::RenderWindow window;
         piece* current_piece;
+        float player_speed;
+        int score;
 };

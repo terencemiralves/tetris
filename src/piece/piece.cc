@@ -64,7 +64,7 @@ void piece::go_right()
     // check if the piece can go right
     for (size_t i = 0; i < cubes.size(); i++)
     {
-        if (cubes[i].first == 9)
+        if (std::round(cubes[i].first) == 9)
             return;
     }
     for (size_t i = 0; i < cubes.size(); i++)
@@ -78,7 +78,7 @@ void piece::go_left()
     // check if the piece can go left
     for (size_t i = 0; i < cubes.size(); i++)
     {
-        if (cubes[i].first == 0)
+        if (std::round(cubes[i].first) == 0)
             return;
     }
     for (size_t i = 0; i < cubes.size(); i++)
@@ -124,6 +124,18 @@ void piece::rotate()
         return;
     // get the center of the piece
     auto center = cubes[1];
+    //check if the rotation won't make the piece go out of bounds
+    for (size_t i = 0; i < cubes.size(); i++)
+    {
+        // if the cube is the center then we don't need to check it
+        if (cubes[i] == center)
+            continue;
+        // get the relative position of the cube to the center
+        auto relative_position = std::make_pair(cubes[i].first - center.first, cubes[i].second - center.second);
+        // check if the cube will go out of bounds
+        if (std::round(center.first - relative_position.second) < 0 ||std::round(center.first - relative_position.second) > 9 ||std::round(center.second + relative_position.first) > 19)
+            return;
+    }
     // rotate the piece
     for (size_t i = 0; i < cubes.size(); i++)
     {
@@ -145,7 +157,7 @@ bool piece::get_in_place()
 void piece::update(float dt)
 {
     // if the piece is in place then we don't need to update it
-    speed -= gravity * dt; // Decrease speed over time
+    speed += gravity * dt; // Increase speed over time
     if (speed < min_speed)
     {
         speed = min_speed; // Clamp speed to minimum value
@@ -153,4 +165,19 @@ void piece::update(float dt)
 
     // Move the piece down based on speed
     go_down(speed * dt);
+}
+
+void piece::set_speed(float speed_)
+{
+    speed = speed_;
+}
+
+float piece::get_speed()
+{
+    return speed;
+}
+
+void piece::set_cubes(std::vector<std::pair<float, float>> cubes_)
+{
+    cubes = cubes_;
 }

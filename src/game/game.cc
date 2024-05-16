@@ -1,6 +1,6 @@
 #include "game.hh"
 
-game::game() : window(sf::RenderWindow(sf::VideoMode(800, 800), "Tetris"))
+game::game() : window(sf::RenderWindow(sf::VideoMode(800, 800), "Tetris")), score(0)
 {
     // initialize the board
     for (int i = 0; i < 20; i++)
@@ -16,12 +16,12 @@ game::game() : window(sf::RenderWindow(sf::VideoMode(800, 800), "Tetris"))
 
 void game::draw()
 {
-    //draw the background
+    // draw the background
     sf::RectangleShape rectangle(sf::Vector2f(window.getSize().x, window.getSize().y));
     rectangle.setFillColor(sf::Color(0, 127, 115));
     rectangle.setPosition(0, 0);
     window.draw(rectangle);
-    //draw the grid
+    // draw the grid
     for (int i = 0; i < 20; i++)
     {
         for (int j = 0; j < 10; j++)
@@ -37,12 +37,45 @@ void game::draw()
         }
     }
 
+    //draw the score
+    sf::Font font;
+    font.loadFromFile("../src/aux/Montserrat-Bold.ttf");
+    sf::Text text;
+    text.setFont(font);
+    text.setString("Score: " + std::to_string(score));
+    text.setCharacterSize(24);
+    text.setFillColor(sf::Color(255, 199, 0));
+    text.setPosition(50, 50);
+    window.draw(text);
+
+    //draw the image of the current piece
+    for (auto &cube : get_bottom_player_piece())
+    {
+        sf::RectangleShape rectangle(sf::Vector2f(40, 40));
+        // set the color of the piece
+        if (current_piece->get_type() == L)
+            rectangle.setFillColor(sf::Color(215, 19, 19));
+        else if (current_piece->get_type() == Reverse_L)
+            rectangle.setFillColor(sf::Color(21, 245, 186));
+        else if (current_piece->get_type() == Line)
+            rectangle.setFillColor(sf::Color(131, 111, 255));
+        else if (current_piece->get_type() == Squigely_left)
+            rectangle.setFillColor(sf::Color(246, 233, 178));
+        else if (current_piece->get_type() == Squigely_right)
+            rectangle.setFillColor(sf::Color(135, 76, 204));
+        else
+            rectangle.setFillColor(sf::Color(242, 123, 189));
+        rectangle.setPosition((window.getSize().x / 2) - 245 + cube.first * 50, 10 + cube.second * 50);
+        window.draw(rectangle);
+    }
+
+
     // loop through all the pieces and draw them
     for (auto &piece : pieces)
     {
         for (auto &cube : piece.get_cubes())
         {
-            //black background of the cube
+            // black background of the cube
             sf::RectangleShape rectangle2(sf::Vector2f(50, 50));
             rectangle2.setFillColor(sf::Color::Black);
             rectangle2.setPosition((window.getSize().x / 2) - 250 + cube.first * 50, 5 + cube.second * 50);
@@ -87,10 +120,17 @@ void game::add_piece()
     else
         pieces.push_back(piece(Cube));
     current_piece = &pieces[pieces.size() - 1];
+    current_piece->set_speed(player_speed);
+    if (check_collision())
+    {
+        window.close();
+        std::cout << "Game Over\n" << "Your score is: " << score << std::endl;
+    }
 }
 
 void game::check_lines()
 {
+    int nb_lines = 0;
     // check if a line is full
     for (size_t i = 0; i < board.size(); i++)
     {
@@ -106,6 +146,7 @@ void game::check_lines()
         // if the line is full delete it
         if (full)
         {
+            nb_lines++;
             for (size_t j = 0; j < board[i].size(); j++)
             {
                 board[i][j] = 0;
@@ -123,6 +164,15 @@ void game::check_lines()
                 piece.delete_row(i);
         }
     }
+    // update the score
+    if (nb_lines == 1)
+        score += 40;
+    else if (nb_lines == 2)
+        score += 100;
+    else if (nb_lines == 3)
+        score += 300;
+    else if (nb_lines == 4)
+        score += 1200;
 }
 
 bool game::check_collision()
@@ -156,7 +206,7 @@ bool game::check_collision()
                 }
             }
         }
-   }
+    }
     return false;
 }
 
@@ -195,6 +245,11 @@ void game::run()
             {
                 current_piece->go_down(1);
             }
+            // check if the key pressed is the space key
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Space)
+            {
+                current_piece->set_cubes(get_bottom_player_piece());
+            }
         }
 
         // aplly the gravity
@@ -205,6 +260,7 @@ void game::run()
         if (check_collision())
         {
             current_piece->set_in_place(true);
+            player_speed = current_piece->get_speed();
             add_piece();
         }
 
@@ -215,4 +271,44 @@ void game::run()
         draw();
         window.display();
     }
+}
+
+std::vector<std::pair<float, float>> game::get_bottom_player_piece()
+{
+    std::vector<std::pair<float, float>> bottom_piece = current_piece->get_cubes();
+    //round the position of the cubes
+    for (size_t i = 0; i < bottom_piece.size(); i++)
+    {
+        bottom_piece[i].first = std::round(bottom_piece[i].first);
+        bottom_piece[i].second = std::round(bottom_piece[i].second);
+    }
+    while (true)
+    {
+        for (auto &cube : bottom_piece)
+        {
+            cube.second += 1;
+        }
+        for (auto &cube : bottom_piece)
+        {
+            // check if the image collided with the bottom of the window
+            if (std::round(cube.second) == 19)
+            {
+                return bottom_piece;
+            }
+            // check if the player collided with another piece
+            for (auto &piece : pieces)
+            {
+                if (!piece.get_in_place())
+                    continue;
+                for (auto &cube_ : piece.get_cubes())
+                {
+                    if (std::round(cube.first) == std::round(cube_.first) && std::round(cube.second) + 1 == std::round(cube_.second))
+                    {
+                        return bottom_piece;
+                    }
+                }
+            }
+        }
+    }
+    return bottom_piece;
 }

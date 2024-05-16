@@ -6,6 +6,7 @@
 #include <SFML/Network.hpp>
 #include <vector>
 #include <cmath>
+#include <iostream>
 
 /*
 * @brief holds all the types of pieces
@@ -38,9 +39,12 @@ class piece {
         piece_type get_type();
         std::vector<std::pair<float, float>> get_cubes();
         bool get_in_place();
+        float get_speed();
 
     //setter
         void set_in_place(bool in_place_);
+        void set_speed(float speed_);
+        void set_cubes(std::vector<std::pair<float, float>> cubes_);
 
     //methods
         /*
