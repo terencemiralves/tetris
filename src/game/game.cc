@@ -1,6 +1,6 @@
 #include "game.hh"
 
-game::game() : window(sf::RenderWindow(sf::VideoMode(800, 600), "Tetris"))
+game::game() : window(sf::RenderWindow(sf::VideoMode(800, 800), "Tetris"))
 {
     // initialize the board
     for (int i = 0; i < 20; i++)
@@ -16,26 +16,52 @@ game::game() : window(sf::RenderWindow(sf::VideoMode(800, 600), "Tetris"))
 
 void game::draw()
 {
+    //draw the background
+    sf::RectangleShape rectangle(sf::Vector2f(window.getSize().x, window.getSize().y));
+    rectangle.setFillColor(sf::Color(0, 127, 115));
+    rectangle.setPosition(0, 0);
+    window.draw(rectangle);
+    //draw the grid
+    for (int i = 0; i < 20; i++)
+    {
+        for (int j = 0; j < 10; j++)
+        {
+            sf::RectangleShape rectangle(sf::Vector2f(50, 50));
+            rectangle.setFillColor(sf::Color::White);
+            rectangle.setPosition((window.getSize().x / 2) - 250 + j * 50, 5 + i * 50);
+            window.draw(rectangle);
+            sf::RectangleShape rectangle2(sf::Vector2f(45, 45));
+            rectangle2.setFillColor(sf::Color::Black);
+            rectangle2.setPosition((window.getSize().x / 2) - 248 + j * 50, 7 + i * 50);
+            window.draw(rectangle2);
+        }
+    }
+
     // loop through all the pieces and draw them
     for (auto &piece : pieces)
     {
         for (auto &cube : piece.get_cubes())
         {
-            sf::RectangleShape rectangle(sf::Vector2f(50, 50));
+            //black background of the cube
+            sf::RectangleShape rectangle2(sf::Vector2f(50, 50));
+            rectangle2.setFillColor(sf::Color::Black);
+            rectangle2.setPosition((window.getSize().x / 2) - 250 + cube.first * 50, 5 + cube.second * 50);
+            window.draw(rectangle2);
+            sf::RectangleShape rectangle(sf::Vector2f(40, 40));
             // set the color of the piece
             if (piece.get_type() == L)
-                rectangle.setFillColor(sf::Color::Red);
+                rectangle.setFillColor(sf::Color(215, 19, 19));
             else if (piece.get_type() == Reverse_L)
-                rectangle.setFillColor(sf::Color::Green);
+                rectangle.setFillColor(sf::Color(21, 245, 186));
             else if (piece.get_type() == Line)
-                rectangle.setFillColor(sf::Color::Blue);
+                rectangle.setFillColor(sf::Color(131, 111, 255));
             else if (piece.get_type() == Squigely_left)
-                rectangle.setFillColor(sf::Color::Yellow);
+                rectangle.setFillColor(sf::Color(246, 233, 178));
             else if (piece.get_type() == Squigely_right)
-                rectangle.setFillColor(sf::Color::Magenta);
+                rectangle.setFillColor(sf::Color(135, 76, 204));
             else
-                rectangle.setFillColor(sf::Color::Cyan);
-            rectangle.setPosition(cube.first * 50, cube.second * 50);
+                rectangle.setFillColor(sf::Color(242, 123, 189));
+            rectangle.setPosition((window.getSize().x / 2) - 245 + cube.first * 50, 10 + cube.second * 50);
             window.draw(rectangle);
         }
     }
