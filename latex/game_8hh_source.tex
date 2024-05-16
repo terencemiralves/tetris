@@ -41,11 +41,18 @@
 \DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @return\ true\ if\ the\ player\ collided\ with\ the\ bottom\ of\ the\ window\ or\ with\ another\ piece}}
 \DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
 \DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ check\_collision();}
-\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::vector<piece>\ pieces;}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ board;}
-\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ sf::RenderWindow\ window;}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}*\ current\_piece;}
-\DoxyCodeLine{00045\ \};}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
+\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ Gives\ back\ the\ coordinate\ of\ the\ player's\ piece\ if\ he\ was\ to\ continue\ to\ go\ down}}
+\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @return\ the\ coordinates\ of\ the\ player's\ piece\ if\ he\ was\ to\ continue\ to\ go\ down}}
+\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ get\_bottom\_player\_piece();}
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::vector<piece>\ pieces;}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ board;}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ sf::RenderWindow\ window;}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}*\ current\_piece;}
+\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ player\_speed;}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ score;}
+\DoxyCodeLine{00052\ \};}
 
 \end{DoxyCode}
