@@ -46,6 +46,10 @@ class game {
         * @brief Prints the board with the player piece
         */
         void print_board();
+        /*
+        * @brief switch the current piece with the holded piece, if there is no holded piece then the current piece is put in hold
+        */
+        void hold_piece();
     private:
         std::vector<piece> pieces;
         std::vector<std::vector<int>> board;
@@ -53,4 +57,8 @@ class game {
         piece* current_piece;
         float player_speed;
         int score;
+        sf::Clock clock;
+        piece next_piece;
+        piece holded_piece;
+        bool holded;
 };

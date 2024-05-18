@@ -37,9 +37,99 @@ void game::draw()
         }
     }
 
-    // draw the score
+    // draw test saying next piece
     sf::Font font;
     font.loadFromFile("../src/aux/Montserrat-Bold.ttf");
+    sf::Text text2;
+    text2.setFont(font);
+    text2.setString("Next piece");
+    text2.setCharacterSize(24);
+    text2.setFillColor(sf::Color(255, 199, 0));
+    text2.setPosition(775, 0);
+    window.draw(text2);
+    // Draw the next piece
+    for (auto &cube : next_piece.get_cubes())
+    {
+        sf::RectangleShape rectangle(sf::Vector2f(40, 40));
+        // set the color of the piece
+        if (next_piece.get_type() == L)
+            rectangle.setFillColor(sf::Color(215, 19, 19));
+        else if (next_piece.get_type() == Reverse_L)
+            rectangle.setFillColor(sf::Color(21, 245, 186));
+        else if (next_piece.get_type() == Line)
+            rectangle.setFillColor(sf::Color(131, 111, 255));
+        else if (next_piece.get_type() == Squigely_left)
+            rectangle.setFillColor(sf::Color(246, 233, 178));
+        else if (next_piece.get_type() == Squigely_right)
+            rectangle.setFillColor(sf::Color(135, 76, 204));
+        else if (next_piece.get_type() == T)
+            rectangle.setFillColor(sf::Color(255, 234, 227));
+        else
+            rectangle.setFillColor(sf::Color(242, 123, 189));
+        if (next_piece.get_type() == Line)
+            rectangle.setPosition(815 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == Cube)
+            rectangle.setPosition(790 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == T)
+            rectangle.setPosition(815 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == Squigely_left)
+            rectangle.setPosition(815 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == Squigely_right)
+            rectangle.setPosition(815 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == L)
+            rectangle.setPosition(800 + (cube.first - 4) * 50, 50 + cube.second * 50);
+        else if (next_piece.get_type() == Reverse_L)
+            rectangle.setPosition(800 + (cube.first - 4) * 50, 50 + cube.second * 50);
+
+        window.draw(rectangle);
+    }
+
+    // draw the holded piece
+    sf::Text text3;
+    text3.setFont(font);
+    text3.setString("Holded piece");
+    text3.setCharacterSize(24);
+    text3.setFillColor(sf::Color(255, 199, 0));
+    text3.setPosition(25, 150);
+    window.draw(text3);
+    // holded piece
+    for (auto &cube : holded_piece.get_cubes())
+    {
+        sf::RectangleShape rectangle(sf::Vector2f(40, 40));
+        // set the color of the piece
+        if (holded_piece.get_type() == L)
+            rectangle.setFillColor(sf::Color(215, 19, 19));
+        else if (holded_piece.get_type() == Reverse_L)
+            rectangle.setFillColor(sf::Color(21, 245, 186));
+        else if (holded_piece.get_type() == Line)
+            rectangle.setFillColor(sf::Color(131, 111, 255));
+        else if (holded_piece.get_type() == Squigely_left)
+            rectangle.setFillColor(sf::Color(246, 233, 178));
+        else if (holded_piece.get_type() == Squigely_right)
+            rectangle.setFillColor(sf::Color(135, 76, 204));
+        else if (holded_piece.get_type() == T)
+            rectangle.setFillColor(sf::Color(255, 234, 227));
+        else
+            rectangle.setFillColor(sf::Color(242, 123, 189));
+        if (holded_piece.get_type() == Line)
+            rectangle.setPosition(50 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == Cube)
+            rectangle.setPosition(25 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == T)
+            rectangle.setPosition(50 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == Squigely_left)
+            rectangle.setPosition(50 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == Squigely_right)
+            rectangle.setPosition(50 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == L)
+            rectangle.setPosition(25 + (cube.first - 4) * 50, 200 + cube.second * 50);
+        else if (holded_piece.get_type() == Reverse_L)
+            rectangle.setPosition(25 + (cube.first - 4) * 50, 200 + cube.second * 50);
+
+        window.draw(rectangle);
+    }
+
+    // draw the score
     sf::Text text;
     text.setFont(font);
     text.setString("Score: " + std::to_string(score));
@@ -105,27 +195,29 @@ void game::draw()
 
 void game::add_piece()
 {
-    // add a piece randomly
+    holded = false;
+    // add the next piece
+    pieces.push_back(next_piece);
+    current_piece = &pieces[pieces.size() - 1];
+    // set the new next piece
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<> dis(0, 6);
     int random_number = dis(gen);
     if (random_number == 0)
-        pieces.push_back(piece(L));
+        next_piece = piece(L);
     else if (random_number == 1)
-        pieces.push_back(piece(Reverse_L));
+        next_piece = piece(Reverse_L);
     else if (random_number == 2)
-        pieces.push_back(piece(Line));
+        next_piece = piece(Line);
     else if (random_number == 3)
-        pieces.push_back(piece(Squigely_left));
+        next_piece = piece(Squigely_left);
     else if (random_number == 4)
-        pieces.push_back(piece(Squigely_right));
+        next_piece = piece(Squigely_right);
     else if (random_number == 5)
-        pieces.push_back(piece(T));
+        next_piece = piece(T);
     else
-        pieces.push_back(piece(Cube));
-    current_piece = &pieces[pieces.size() - 1];
-    current_piece->set_speed(player_speed);
+        next_piece = piece(Cube);
     if (check_collision())
     {
         window.close();
@@ -170,15 +262,17 @@ void game::check_lines()
                 piece.delete_row(i);
         }
     }
+    // get the bonus multiplier
+    auto bonus = (clock.getElapsedTime().asSeconds() / 60) + 1;
     // update the score
     if (nb_lines == 1)
-        score += 40;
+        score += 40 * bonus;
     else if (nb_lines == 2)
-        score += 100;
+        score += 100 * bonus;
     else if (nb_lines == 3)
-        score += 300;
+        score += 300 * bonus;
     else if (nb_lines == 4)
-        score += 1200;
+        score += 1200 * bonus;
 }
 
 bool game::check_collision()
@@ -218,9 +312,30 @@ bool game::check_collision()
 
 void game::run()
 {
+    // create the first piece
+    std::random_device rd;
+    std::mt19937 gen(rd());
+    std::uniform_int_distribution<> dis(0, 6);
+    int random_number = dis(gen);
+    if (random_number == 0)
+        next_piece = piece(L);
+    else if (random_number == 1)
+        next_piece = piece(Reverse_L);
+    else if (random_number == 2)
+        next_piece = piece(Line);
+    else if (random_number == 3)
+        next_piece = piece(Squigely_left);
+    else if (random_number == 4)
+        next_piece = piece(Squigely_right);
+    else if (random_number == 5)
+        next_piece = piece(T);
+    else
+        next_piece = piece(Cube);
+
     // add the first piece
     add_piece();
-    sf::Clock clock;
+    clock.restart();
+    sf::Clock clock2;
     while (window.isOpen())
     {
         sf::Event event;
@@ -256,17 +371,22 @@ void game::run()
             {
                 current_piece->set_cubes(get_bottom_player_piece());
             }
+            // check if the player pressed the shift key
+            if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::LShift)
+            {
+                hold_piece();
+            }
         }
 
         // aplly the gravity
-        float deltaT = clock.restart().asSeconds();
+        float deltaT = clock2.restart().asSeconds();
         current_piece->update(deltaT);
 
         // check the collision
         if (check_collision())
         {
             current_piece->set_in_place(true);
-            player_speed = current_piece->get_speed();
+            player_speed = current_piece->get_speed() - 0.1;
             add_piece();
         }
 
@@ -329,7 +449,8 @@ void game::print_board()
             auto pice = false;
             for (auto cube : current_piece->get_cubes())
             {
-                if (std::round(cube.first) < 0){
+                if (std::round(cube.first) < 0)
+                {
                     std::cout << "ERROR\n";
                 }
                 if (std::round(cube.first) == j && std::round(cube.second) == i)
@@ -346,4 +467,26 @@ void game::print_board()
         std::cout << std::endl;
     }
     std::cout << "-----------" << std::endl;
+}
+
+void game::hold_piece()
+{
+    if (!holded)
+    {
+        if (holded_piece.get_cubes().size() == 0)
+        {
+            holded_piece = piece(current_piece->get_type());
+            pieces.pop_back();
+            add_piece();
+        }
+        else
+        {
+            piece temp = holded_piece;
+            holded_piece = piece(current_piece->get_type());
+            pieces.pop_back();
+            pieces.push_back(temp);
+            current_piece = &pieces[pieces.size() - 1];
+        }
+        holded = true;
+    }
 }
