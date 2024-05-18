@@ -7,14 +7,14 @@ piece::piece(piece_type type) : type(type), in_place(false), gravity(0.1f), spee
     {
     case L:
         cubes.push_back(std::make_pair(4, 0));
-        cubes.push_back(std::make_pair(4, 1));
         cubes.push_back(std::make_pair(4, 2));
+        cubes.push_back(std::make_pair(4, 1));
         cubes.push_back(std::make_pair(5, 2));
         break;
     case Reverse_L:
         cubes.push_back(std::make_pair(5, 0));
-        cubes.push_back(std::make_pair(5, 1));
         cubes.push_back(std::make_pair(5, 2));
+        cubes.push_back(std::make_pair(5, 1));
         cubes.push_back(std::make_pair(4, 2));
         break;
     case Line:
@@ -25,14 +25,14 @@ piece::piece(piece_type type) : type(type), in_place(false), gravity(0.1f), spee
         break;
     case Squigely_left:
         cubes.push_back(std::make_pair(3, 0));
-        cubes.push_back(std::make_pair(4, 0));
         cubes.push_back(std::make_pair(4, 1));
+        cubes.push_back(std::make_pair(4, 0));
         cubes.push_back(std::make_pair(5, 1));
         break;
     case Squigely_right:
         cubes.push_back(std::make_pair(5, 0));
-        cubes.push_back(std::make_pair(4, 0));
         cubes.push_back(std::make_pair(4, 1));
+        cubes.push_back(std::make_pair(4, 0));
         cubes.push_back(std::make_pair(3, 1));
         break;
     case Cube:
@@ -40,6 +40,12 @@ piece::piece(piece_type type) : type(type), in_place(false), gravity(0.1f), spee
         cubes.push_back(std::make_pair(5, 1));
         cubes.push_back(std::make_pair(4, 1));
         cubes.push_back(std::make_pair(5, 0));
+        break;
+    case T:
+        cubes.push_back(std::make_pair(4, 0));
+        cubes.push_back(std::make_pair(4, 1));
+        cubes.push_back(std::make_pair(3, 1));
+        cubes.push_back(std::make_pair(5, 1));
         break;
     }
 }
@@ -59,12 +65,18 @@ void piece::set_in_place(bool in_place_)
     }
 }
 
-void piece::go_right()
+void piece::go_right(std::vector<std::vector<int>> board)
 {
     // check if the piece can go right
     for (size_t i = 0; i < cubes.size(); i++)
     {
         if (std::round(cubes[i].first) == 9)
+            return;
+    }
+    //check contact with other pieces
+    for (size_t i = 0; i < cubes.size(); i++)
+    {
+        if (board[std::round(cubes[i].second)][std::round(cubes[i].first) + 1] != 0)
             return;
     }
     for (size_t i = 0; i < cubes.size(); i++)
@@ -73,12 +85,18 @@ void piece::go_right()
     }
 }
 
-void piece::go_left()
+void piece::go_left(std::vector<std::vector<int>> board)
 {
     // check if the piece can go left
     for (size_t i = 0; i < cubes.size(); i++)
     {
         if (std::round(cubes[i].first) == 0)
+            return;
+    }
+    //check contact with other pieces
+    for (size_t i = 0; i < cubes.size(); i++)
+    {
+        if (board[std::round(cubes[i].second)][std::round(cubes[i].first) - 1] != 0)
             return;
     }
     for (size_t i = 0; i < cubes.size(); i++)
@@ -117,35 +135,117 @@ void piece::delete_row(int row)
     cubes = new_cubes;
 }
 
-void piece::rotate()
+/*
+* @brief helper function that takes the board, the pieces and checks that the rotation is doable
+* @param board the board of the game
+* @param pieces the pieces of the game
+* @return returns 0 if it is doable, 1 if the piece is tochinng on the left, 2 if the piece is touching on the right, 3 if the piece is touching the bottom, 4 else
+*/
+int check_rotation(std::vector<std::vector<int>> board, std::vector<std::pair<float, float>> cubes)
+{
+    //check if the rotation won't make the piece go out of bounds
+    for (size_t i = 0; i < cubes.size(); i++)
+    {
+        //the piece is already rotated we just check if it is in the bounds and not overlapping with other pieces
+        if (std::round(cubes[i].first) < 0)
+            return 1;
+        if (std::round(cubes[i].first) > 9)
+            return 2;
+        if (std::round(cubes[i].second) > 19)
+            return 3;
+        if (board[std::round(cubes[i].second)][std::round(cubes[i].first)] != 0)
+            return 4;
+    }
+    return 0;
+}
+
+void piece::rotate(std::vector<std::vector<int>> board)
 {
     // if the piece is a cube then we don't need to rotate it
     if (type == Cube)
         return;
     // get the center of the piece
     auto center = cubes[1];
-    //check if the rotation won't make the piece go out of bounds
-    for (size_t i = 0; i < cubes.size(); i++)
-    {
-        // if the cube is the center then we don't need to check it
-        if (cubes[i] == center)
-            continue;
-        // get the relative position of the cube to the center
-        auto relative_position = std::make_pair(cubes[i].first - center.first, cubes[i].second - center.second);
-        // check if the cube will go out of bounds
-        if (std::round(center.first - relative_position.second) < 0 ||std::round(center.first - relative_position.second) > 9 ||std::round(center.second + relative_position.first) > 19)
-            return;
-    }
-    // rotate the piece
+    // new cubes
+    auto new_cubes = std::vector<std::pair<float, float>>();
+    //rotate the piece
     for (size_t i = 0; i < cubes.size(); i++)
     {
         // if the cube is the center then we don't need to rotate it
-        if (cubes[i] == center)
+        if (cubes[i] == center){
+            new_cubes.push_back(center);
             continue;
+        }
         // get the relative position of the cube to the center
         auto relative_position = std::make_pair(cubes[i].first - center.first, cubes[i].second - center.second);
         // rotate the cube
-        cubes[i] = std::make_pair(center.first - relative_position.second, center.second + relative_position.first);
+        new_cubes.push_back(std::make_pair(center.first - relative_position.second, center.second + relative_position.first));
+    }
+    // check if the rotation is doable
+    switch (check_rotation(board, new_cubes))
+    {
+    case 0:
+        cubes = new_cubes;
+        break;
+    case 1:
+        // check if dooable if shifted to the right by at most 2
+        for (size_t i = 0; i < 2; i++)
+        {
+            for (size_t j = 0; j < cubes.size(); j++)
+            {
+                new_cubes[j].first += 1;
+            }
+            if (check_rotation(board, new_cubes) == 0)
+            {
+                cubes = new_cubes;
+                return;
+            }
+        }
+        break;
+    case 2:
+        // check if dooable if shifted to the left by at most 2
+        for (size_t i = 0; i < 2; i++)
+        {
+            for (size_t j = 0; j < cubes.size(); j++)
+            {
+                new_cubes[j].first -= 1;
+            }
+            if (check_rotation(board, new_cubes) == 0)
+            {
+                cubes = new_cubes;
+                return;
+            }
+        }
+        break;
+    case 4:
+        // in this case the piece is touching another piece so we will try to shift it to the right or to the left at most 2 times
+        for (size_t i = 0; i < 2; i++)
+        {
+            for (size_t j = 0; j < cubes.size(); j++)
+            {
+                new_cubes[j].first += 1;
+            }
+            if (check_rotation(board, new_cubes) == 0)
+            {
+                cubes = new_cubes;
+                return;
+            }
+        }
+        //the right shift didn't work so we try the left shift
+        for (size_t i = 0; i < 2; i++)
+        {
+            for (size_t j = 0; j < cubes.size(); j++)
+            {
+                new_cubes[j].first -= 1;
+            }
+            if (check_rotation(board, new_cubes) == 0)
+            {
+                cubes = new_cubes;
+                return;
+            }
+        }
+    default:
+        break;
     }
 }
 

@@ -42,6 +42,10 @@ class game {
         * @return the coordinates of the player's piece if he was to continue to go down
         */
         std::vector<std::pair<float, float>> get_bottom_player_piece();
+        /*
+        * @brief Prints the board with the player piece
+        */
+        void print_board();
     private:
         std::vector<piece> pieces;
         std::vector<std::vector<int>> board;

@@ -17,7 +17,8 @@ enum piece_type {
     Line,
     Squigely_left,
     Squigely_right,
-    Cube
+    Cube,
+    T
 };
 
 
@@ -50,11 +51,11 @@ class piece {
         /*
         * @brief aplies a shift of the size of a cube to all the cubes on the right
         */
-        void go_right();
+        void go_right(std::vector<std::vector<int>> board);
         /*
         * @brief aplies a shift of the size of a cube to all the cubes on the left
         */
-        void go_left();
+        void go_left(std::vector<std::vector<int>> board);
         /*
         * @brief aplies a shift of the given size to all the cubes to the bottom
         * @param down the amount of the down shift
@@ -68,7 +69,7 @@ class piece {
         /*
         * @brief rotates the piece
         */
-        void rotate();
+        void rotate(std::vector<std::vector<int>> board);
         /*
         * @brief updates the piece
         * @param dt the time that has passed since the last update

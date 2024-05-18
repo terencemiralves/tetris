@@ -37,7 +37,7 @@ void game::draw()
         }
     }
 
-    //draw the score
+    // draw the score
     sf::Font font;
     font.loadFromFile("../src/aux/Montserrat-Bold.ttf");
     sf::Text text;
@@ -48,7 +48,7 @@ void game::draw()
     text.setPosition(50, 50);
     window.draw(text);
 
-    //draw the image of the current piece
+    // draw the image of the current piece
     for (auto &cube : get_bottom_player_piece())
     {
         sf::RectangleShape rectangle(sf::Vector2f(40, 40));
@@ -63,12 +63,13 @@ void game::draw()
             rectangle.setFillColor(sf::Color(246, 233, 178));
         else if (current_piece->get_type() == Squigely_right)
             rectangle.setFillColor(sf::Color(135, 76, 204));
+        else if (current_piece->get_type() == T)
+            rectangle.setFillColor(sf::Color(255, 234, 227));
         else
             rectangle.setFillColor(sf::Color(242, 123, 189));
         rectangle.setPosition((window.getSize().x / 2) - 245 + cube.first * 50, 10 + cube.second * 50);
         window.draw(rectangle);
     }
-
 
     // loop through all the pieces and draw them
     for (auto &piece : pieces)
@@ -78,7 +79,7 @@ void game::draw()
             // black background of the cube
             sf::RectangleShape rectangle2(sf::Vector2f(50, 50));
             rectangle2.setFillColor(sf::Color::Black);
-            rectangle2.setPosition((window.getSize().x / 2) - 250 + cube.first * 50, 5 + cube.second * 50);
+            rectangle2.setPosition((window.getSize().x / 2) - 250 + cube.first * 50, 5 + std::round(cube.second) * 50);
             window.draw(rectangle2);
             sf::RectangleShape rectangle(sf::Vector2f(40, 40));
             // set the color of the piece
@@ -92,9 +93,11 @@ void game::draw()
                 rectangle.setFillColor(sf::Color(246, 233, 178));
             else if (piece.get_type() == Squigely_right)
                 rectangle.setFillColor(sf::Color(135, 76, 204));
+            else if (current_piece->get_type() == T)
+                rectangle.setFillColor(sf::Color(255, 234, 227));
             else
                 rectangle.setFillColor(sf::Color(242, 123, 189));
-            rectangle.setPosition((window.getSize().x / 2) - 245 + cube.first * 50, 10 + cube.second * 50);
+            rectangle.setPosition((window.getSize().x / 2) - 245 + cube.first * 50, 10 + std::round(cube.second) * 50);
             window.draw(rectangle);
         }
     }
@@ -105,7 +108,7 @@ void game::add_piece()
     // add a piece randomly
     std::random_device rd;
     std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dis(0, 5);
+    std::uniform_int_distribution<> dis(0, 6);
     int random_number = dis(gen);
     if (random_number == 0)
         pieces.push_back(piece(L));
@@ -117,6 +120,8 @@ void game::add_piece()
         pieces.push_back(piece(Squigely_left));
     else if (random_number == 4)
         pieces.push_back(piece(Squigely_right));
+    else if (random_number == 5)
+        pieces.push_back(piece(T));
     else
         pieces.push_back(piece(Cube));
     current_piece = &pieces[pieces.size() - 1];
@@ -124,7 +129,8 @@ void game::add_piece()
     if (check_collision())
     {
         window.close();
-        std::cout << "Game Over\n" << "Your score is: " << score << std::endl;
+        std::cout << "Game Over\n"
+                  << "Your score is: " << score << std::endl;
     }
 }
 
@@ -228,17 +234,17 @@ void game::run()
             // check if the key pressed is the right arrow key
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Right)
             {
-                current_piece->go_right();
+                current_piece->go_right(board);
             }
             // check if the key pressed is the left arrow key
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Left)
             {
-                current_piece->go_left();
+                current_piece->go_left(board);
             }
             // check if the key pressed is the up arrow key
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Up)
             {
-                current_piece->rotate();
+                current_piece->rotate(board);
             }
             // check if the key pressed is the down arrow key
             if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Down)
@@ -276,7 +282,7 @@ void game::run()
 std::vector<std::pair<float, float>> game::get_bottom_player_piece()
 {
     std::vector<std::pair<float, float>> bottom_piece = current_piece->get_cubes();
-    //round the position of the cubes
+    // round the position of the cubes
     for (size_t i = 0; i < bottom_piece.size(); i++)
     {
         bottom_piece[i].first = std::round(bottom_piece[i].first);
@@ -311,4 +317,33 @@ std::vector<std::pair<float, float>> game::get_bottom_player_piece()
         }
     }
     return bottom_piece;
+}
+
+void game::print_board()
+{
+    for (size_t i = 0; i < board.size(); i++)
+    {
+        for (size_t j = 0; j < board[i].size(); j++)
+        {
+            // print the player piece
+            auto pice = false;
+            for (auto cube : current_piece->get_cubes())
+            {
+                if (std::round(cube.first) < 0){
+                    std::cout << "ERROR\n";
+                }
+                if (std::round(cube.first) == j && std::round(cube.second) == i)
+                {
+                    pice = true;
+                    std::cout << "X|";
+                }
+            }
+            if (board[i][j] == 0 && !pice)
+                std::cout << " |";
+            else if (board[i][j] == 1)
+                std::cout << "X|";
+        }
+        std::cout << std::endl;
+    }
+    std::cout << "-----------" << std::endl;
 }
