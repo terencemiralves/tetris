@@ -1,26 +1,71 @@
 \doxysection{game Class Reference}
 \hypertarget{classgame}{}\label{classgame}\index{game@{game}}
+
+
+Holds all the game logic, the pieces, the board, the score, etc.  
+
+
+
+
+{\ttfamily \#include $<$game.\+hh$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \Hypertarget{classgame_ac0989b3bcd3a7a806cd7c3211bc339e8}\label{classgame_ac0989b3bcd3a7a806cd7c3211bc339e8} 
 void {\bfseries run} ()
-\item 
+\begin{DoxyCompactList}\small\item\em runs the main loop of the game \end{DoxyCompactList}\item 
 \Hypertarget{classgame_a1dacdc037ebc63e79dc459fd50990ba4}\label{classgame_a1dacdc037ebc63e79dc459fd50990ba4} 
 void {\bfseries check\+\_\+lines} ()
-\item 
+\begin{DoxyCompactList}\small\item\em checks if there are any lines to delete, if there is updates the board and the pieces \end{DoxyCompactList}\item 
 \Hypertarget{classgame_a087dbdf38e844bf14a0dd9a39715842f}\label{classgame_a087dbdf38e844bf14a0dd9a39715842f} 
 void {\bfseries add\+\_\+piece} ()
-\item 
+\begin{DoxyCompactList}\small\item\em add a new player controlled piece \end{DoxyCompactList}\item 
 \Hypertarget{classgame_a1ec865d3fc66e82fdd3590ae8b3d62c5}\label{classgame_a1ec865d3fc66e82fdd3590ae8b3d62c5} 
 void {\bfseries draw} ()
-\item 
-\Hypertarget{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4}\label{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4} 
-bool {\bfseries check\+\_\+collision} ()
-\item 
-\Hypertarget{classgame_a93df5dafbeb83d0e6a8c669010a780ef}\label{classgame_a93df5dafbeb83d0e6a8c669010a780ef} 
-std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ {\bfseries get\+\_\+bottom\+\_\+player\+\_\+piece} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em draws the pieces \end{DoxyCompactList}\item 
+bool \mbox{\hyperlink{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4}{check\+\_\+collision}} ()
+\begin{DoxyCompactList}\small\item\em checks if the player collided with the bottom of the window or with another piece \end{DoxyCompactList}\item 
+std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ \mbox{\hyperlink{classgame_a93df5dafbeb83d0e6a8c669010a780ef}{get\+\_\+bottom\+\_\+player\+\_\+piece}} ()
+\begin{DoxyCompactList}\small\item\em Gives back the coordinate of the player\textquotesingle{}s piece if he was to continue to go down. \end{DoxyCompactList}\item 
+\Hypertarget{classgame_af0fa58057403aa6dad23d6a764c4560a}\label{classgame_af0fa58057403aa6dad23d6a764c4560a} 
+void {\bfseries print\+\_\+board} ()
+\begin{DoxyCompactList}\small\item\em Prints the board with the player piece. \end{DoxyCompactList}\item 
+\Hypertarget{classgame_af07ef7e4c563a6a15c4079970193b4f3}\label{classgame_af07ef7e4c563a6a15c4079970193b4f3} 
+void {\bfseries hold\+\_\+piece} ()
+\begin{DoxyCompactList}\small\item\em switch the current piece with the holded piece, if there is no holded piece then the current piece is put in hold \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds all the game logic, the pieces, the board, the score, etc. 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4}\index{game@{game}!check\_collision@{check\_collision}}
+\index{check\_collision@{check\_collision}!game@{game}}
+\doxysubsubsection{\texorpdfstring{check\_collision()}{check\_collision()}}
+{\footnotesize\ttfamily \label{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4} 
+bool game\+::check\+\_\+collision (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+checks if the player collided with the bottom of the window or with another piece 
+
+\begin{DoxyReturn}{Returns}
+true if the player collided with the bottom of the window or with another piece 
+\end{DoxyReturn}
+\Hypertarget{classgame_a93df5dafbeb83d0e6a8c669010a780ef}\index{game@{game}!get\_bottom\_player\_piece@{get\_bottom\_player\_piece}}
+\index{get\_bottom\_player\_piece@{get\_bottom\_player\_piece}!game@{game}}
+\doxysubsubsection{\texorpdfstring{get\_bottom\_player\_piece()}{get\_bottom\_player\_piece()}}
+{\footnotesize\ttfamily \label{classgame_a93df5dafbeb83d0e6a8c669010a780ef} 
+std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ game\+::get\+\_\+bottom\+\_\+player\+\_\+piece (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption})}
+
+
+
+Gives back the coordinate of the player\textquotesingle{}s piece if he was to continue to go down. 
+
+\begin{DoxyReturn}{Returns}
+the coordinates of the player\textquotesingle{}s piece if he was to continue to go down 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

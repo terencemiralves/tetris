@@ -8,7 +8,7 @@
 #include <cmath>
 #include <iostream>
 
-/*
+/**
 * @brief holds all the types of pieces
 */
 enum piece_type {
@@ -22,14 +22,14 @@ enum piece_type {
 };
 
 
-/*
+/**
 * @brief Holds all the info of a piece (all of it's square in a vector, and methods that allows you to aply a move to the piece) 
 */
 class piece {
     public:
     //Constructors (take the piece type)
         piece() = default;
-        /*
+        /**
         * @brief piece constructor, takes the type of the created piece
         * @param piece_type enum piece_type, the type of the piece
         */
@@ -48,29 +48,29 @@ class piece {
         void set_cubes(std::vector<std::pair<float, float>> cubes_);
 
     //methods
-        /*
+        /**
         * @brief aplies a shift of the size of a cube to all the cubes on the right
         */
         void go_right(std::vector<std::vector<int>> board);
-        /*
+        /**
         * @brief aplies a shift of the size of a cube to all the cubes on the left
         */
         void go_left(std::vector<std::vector<int>> board);
-        /*
+        /**
         * @brief aplies a shift of the given size to all the cubes to the bottom
         * @param down the amount of the down shift
         */       
         void go_down(float down);
-        /*
+        /**
         * @brief delets all the cubes on a certain row updates all the cubes that were above if they placed
         * @param row the row where the elements have to be deleted
         */
         void delete_row(int row);
-        /*
+        /**
         * @brief rotates the piece
         */
         void rotate(std::vector<std::vector<int>> board);
-        /*
+        /**
         * @brief updates the piece
         * @param dt the time that has passed since the last update
         */

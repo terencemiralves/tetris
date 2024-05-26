@@ -11,48 +11,31 @@
 \DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <vector>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <random>}}
-\DoxyCodeLine{00010\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00011\ \textcolor{comment}{*\ @brief\ Holds\ all\ the\ game\ logic,\ the\ pieces,\ the\ board,\ the\ score,\ etc}}
-\DoxyCodeLine{00012\ \textcolor{comment}{*/}}
 \DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classgame}{game}}\ \{}
 \DoxyCodeLine{00014\ \ \ \ \ \textcolor{keyword}{public}:}
 \DoxyCodeLine{00015\ \ \ \ \ \textcolor{comment}{//Constructors}}
 \DoxyCodeLine{00016\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgame}{game}}();}
 \DoxyCodeLine{00017\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classgame}{\string~game}}()\ =\ \textcolor{keywordflow}{default};}
 \DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//methods}}
-\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ runs\ the\ main\ loop\ of\ the\ game}}
-\DoxyCodeLine{00021\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ run();}
-\DoxyCodeLine{00023\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00024\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ checks\ if\ there\ are\ any\ lines\ to\ delete,\ if\ there\ is\ updates\ the\ board\ and\ the\ pieces}}
-\DoxyCodeLine{00025\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ check\_lines();}
-\DoxyCodeLine{00027\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00028\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ add\ a\ new\ player\ controlled\ piece}}
-\DoxyCodeLine{00029\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ add\_piece();}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ draws\ the\ pieces}}
-\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ draw();}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00036\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ checks\ if\ the\ player\ collided\ with\ the\ bottom\ of\ the\ window\ or\ with\ another\ piece}}
-\DoxyCodeLine{00037\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @return\ true\ if\ the\ player\ collided\ with\ the\ bottom\ of\ the\ window\ or\ with\ another\ piece}}
-\DoxyCodeLine{00038\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ check\_collision();}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00041\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ Gives\ back\ the\ coordinate\ of\ the\ player's\ piece\ if\ he\ was\ to\ continue\ to\ go\ down}}
-\DoxyCodeLine{00042\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @return\ the\ coordinates\ of\ the\ player's\ piece\ if\ he\ was\ to\ continue\ to\ go\ down}}
-\DoxyCodeLine{00043\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ get\_bottom\_player\_piece();}
-\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ std::vector<piece>\ pieces;}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ board;}
-\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ sf::RenderWindow\ window;}
-\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}*\ current\_piece;}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ player\_speed;}
-\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ score;}
-\DoxyCodeLine{00052\ \};}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_ac0989b3bcd3a7a806cd7c3211bc339e8}{run}}();}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_a1dacdc037ebc63e79dc459fd50990ba4}{check\_lines}}();}
+\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_a087dbdf38e844bf14a0dd9a39715842f}{add\_piece}}();}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_a1ec865d3fc66e82fdd3590ae8b3d62c5}{draw}}();}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ \mbox{\hyperlink{classgame_ad2e967a21f2b316dae7d7cde3cf7bdb4}{check\_collision}}();}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ \mbox{\hyperlink{classgame_a93df5dafbeb83d0e6a8c669010a780ef}{get\_bottom\_player\_piece}}();}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_af0fa58057403aa6dad23d6a764c4560a}{print\_board}}();}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classgame_af07ef7e4c563a6a15c4079970193b4f3}{hold\_piece}}();}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ std::vector<piece>\ pieces;}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ std::vector<std::vector<int>>\ board;}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \ \ sf::RenderWindow\ window;}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}*\ current\_piece;}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ player\_speed;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ score;}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ sf::Clock\ clock;}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}\ next\_piece;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}\ holded\_piece;}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ holded;}
+\DoxyCodeLine{00064\ \};}
 
 \end{DoxyCode}

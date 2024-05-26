@@ -1,11 +1,19 @@
 \doxysection{piece Class Reference}
 \hypertarget{classpiece}{}\label{classpiece}\index{piece@{piece}}
+
+
+Holds all the info of a piece (all of it\textquotesingle{}s square in a vector, and methods that allows you to aply a move to the piece)  
+
+
+
+
+{\ttfamily \#include $<$piece.\+hh$>$}
+
 \doxysubsubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\Hypertarget{classpiece_a365929454d7a6dd3707be0c261bca11b}\label{classpiece_a365929454d7a6dd3707be0c261bca11b} 
-{\bfseries piece} (piece\+\_\+type)
-\item 
+\mbox{\hyperlink{classpiece_a365929454d7a6dd3707be0c261bca11b}{piece}} (piece\+\_\+type)
+\begin{DoxyCompactList}\small\item\em piece constructor, takes the type of the created piece \end{DoxyCompactList}\item 
 \Hypertarget{classpiece_a74a3e5d357759b130f7ef421ed15e615}\label{classpiece_a74a3e5d357759b130f7ef421ed15e615} 
 piece\+\_\+type {\bfseries get\+\_\+type} ()
 \item 
@@ -27,24 +35,90 @@ void {\bfseries set\+\_\+speed} (float speed\+\_\+)
 \Hypertarget{classpiece_a82f365a24a1c8b4d74b8cbbb082742c1}\label{classpiece_a82f365a24a1c8b4d74b8cbbb082742c1} 
 void {\bfseries set\+\_\+cubes} (std\+::vector$<$ std\+::pair$<$ float, float $>$ $>$ cubes\+\_\+)
 \item 
-\Hypertarget{classpiece_a16016fb5ba95798a88ecb4f8333189db}\label{classpiece_a16016fb5ba95798a88ecb4f8333189db} 
-void {\bfseries go\+\_\+right} ()
-\item 
-\Hypertarget{classpiece_aa6eaadf9ad751947ccc0ccd1ed707fd1}\label{classpiece_aa6eaadf9ad751947ccc0ccd1ed707fd1} 
-void {\bfseries go\+\_\+left} ()
-\item 
-\Hypertarget{classpiece_a7f93088ba9154e020b6d8fe74d932133}\label{classpiece_a7f93088ba9154e020b6d8fe74d932133} 
-void {\bfseries go\+\_\+down} (float down)
-\item 
-\Hypertarget{classpiece_a78e07ffb4f574307a1f601b5cf7ed905}\label{classpiece_a78e07ffb4f574307a1f601b5cf7ed905} 
-void {\bfseries delete\+\_\+row} (int row)
-\item 
-\Hypertarget{classpiece_a5fd0d5c9bd3a51846802d21e1fbdf6f4}\label{classpiece_a5fd0d5c9bd3a51846802d21e1fbdf6f4} 
-void {\bfseries rotate} ()
-\item 
-\Hypertarget{classpiece_ad059df725661c5e6d06a7caa7bf4a183}\label{classpiece_ad059df725661c5e6d06a7caa7bf4a183} 
-void {\bfseries update} (float dt)
-\end{DoxyCompactItemize}
+\Hypertarget{classpiece_a3385294dd3aa6e03238c996f595743a0}\label{classpiece_a3385294dd3aa6e03238c996f595743a0} 
+void {\bfseries go\+\_\+right} (std\+::vector$<$ std\+::vector$<$ int $>$ $>$ board)
+\begin{DoxyCompactList}\small\item\em aplies a shift of the size of a cube to all the cubes on the right \end{DoxyCompactList}\item 
+\Hypertarget{classpiece_ab4e8bf94c06e08e5a4e5e86f77558f1d}\label{classpiece_ab4e8bf94c06e08e5a4e5e86f77558f1d} 
+void {\bfseries go\+\_\+left} (std\+::vector$<$ std\+::vector$<$ int $>$ $>$ board)
+\begin{DoxyCompactList}\small\item\em aplies a shift of the size of a cube to all the cubes on the left \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpiece_a7f93088ba9154e020b6d8fe74d932133}{go\+\_\+down}} (float down)
+\begin{DoxyCompactList}\small\item\em aplies a shift of the given size to all the cubes to the bottom \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpiece_a78e07ffb4f574307a1f601b5cf7ed905}{delete\+\_\+row}} (int row)
+\begin{DoxyCompactList}\small\item\em delets all the cubes on a certain row updates all the cubes that were above if they placed \end{DoxyCompactList}\item 
+\Hypertarget{classpiece_aa4fb978565ffaf1e061fcbbc0bcec2d5}\label{classpiece_aa4fb978565ffaf1e061fcbbc0bcec2d5} 
+void {\bfseries rotate} (std\+::vector$<$ std\+::vector$<$ int $>$ $>$ board)
+\begin{DoxyCompactList}\small\item\em rotates the piece \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{classpiece_ad059df725661c5e6d06a7caa7bf4a183}{update}} (float dt)
+\begin{DoxyCompactList}\small\item\em updates the piece \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Holds all the info of a piece (all of it\textquotesingle{}s square in a vector, and methods that allows you to aply a move to the piece) 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{classpiece_a365929454d7a6dd3707be0c261bca11b}\index{piece@{piece}!piece@{piece}}
+\index{piece@{piece}!piece@{piece}}
+\doxysubsubsection{\texorpdfstring{piece()}{piece()}}
+{\footnotesize\ttfamily \label{classpiece_a365929454d7a6dd3707be0c261bca11b} 
+piece\+::piece (\begin{DoxyParamCaption}\item[{piece\+\_\+type}]{type}{}\end{DoxyParamCaption})}
+
+
+
+piece constructor, takes the type of the created piece 
+
+
+\begin{DoxyParams}{Parameters}
+{\em piece\+\_\+type} & enum piece\+\_\+type, the type of the piece \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{classpiece_a78e07ffb4f574307a1f601b5cf7ed905}\index{piece@{piece}!delete\_row@{delete\_row}}
+\index{delete\_row@{delete\_row}!piece@{piece}}
+\doxysubsubsection{\texorpdfstring{delete\_row()}{delete\_row()}}
+{\footnotesize\ttfamily \label{classpiece_a78e07ffb4f574307a1f601b5cf7ed905} 
+void piece\+::delete\+\_\+row (\begin{DoxyParamCaption}\item[{int}]{row}{}\end{DoxyParamCaption})}
+
+
+
+delets all the cubes on a certain row updates all the cubes that were above if they placed 
+
+
+\begin{DoxyParams}{Parameters}
+{\em row} & the row where the elements have to be deleted \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classpiece_a7f93088ba9154e020b6d8fe74d932133}\index{piece@{piece}!go\_down@{go\_down}}
+\index{go\_down@{go\_down}!piece@{piece}}
+\doxysubsubsection{\texorpdfstring{go\_down()}{go\_down()}}
+{\footnotesize\ttfamily \label{classpiece_a7f93088ba9154e020b6d8fe74d932133} 
+void piece\+::go\+\_\+down (\begin{DoxyParamCaption}\item[{float}]{down}{}\end{DoxyParamCaption})}
+
+
+
+aplies a shift of the given size to all the cubes to the bottom 
+
+
+\begin{DoxyParams}{Parameters}
+{\em down} & the amount of the down shift \\
+\hline
+\end{DoxyParams}
+\Hypertarget{classpiece_ad059df725661c5e6d06a7caa7bf4a183}\index{piece@{piece}!update@{update}}
+\index{update@{update}!piece@{piece}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily \label{classpiece_ad059df725661c5e6d06a7caa7bf4a183} 
+void piece\+::update (\begin{DoxyParamCaption}\item[{float}]{dt}{}\end{DoxyParamCaption})}
+
+
+
+updates the piece 
+
+
+\begin{DoxyParams}{Parameters}
+{\em dt} & the time that has passed since the last update \\
+\hline
+\end{DoxyParams}
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}

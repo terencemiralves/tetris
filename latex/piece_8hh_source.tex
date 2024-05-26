@@ -12,80 +12,50 @@
 \DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cmath>}}
 \DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <iostream>}}
 \DoxyCodeLine{00010\ }
-\DoxyCodeLine{00011\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00012\ \textcolor{comment}{*\ @brief\ holds\ all\ the\ types\ of\ pieces}}
-\DoxyCodeLine{00013\ \textcolor{comment}{*/}}
 \DoxyCodeLine{00014\ \textcolor{keyword}{enum}\ piece\_type\ \{}
 \DoxyCodeLine{00015\ \ \ \ \ L,}
 \DoxyCodeLine{00016\ \ \ \ \ Reverse\_L,}
 \DoxyCodeLine{00017\ \ \ \ \ Line,}
 \DoxyCodeLine{00018\ \ \ \ \ Squigely\_left,}
 \DoxyCodeLine{00019\ \ \ \ \ Squigely\_right,}
-\DoxyCodeLine{00020\ \ \ \ \ Cube}
-\DoxyCodeLine{00021\ \};}
-\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00020\ \ \ \ \ Cube,}
+\DoxyCodeLine{00021\ \ \ \ \ T}
+\DoxyCodeLine{00022\ \};}
 \DoxyCodeLine{00023\ }
-\DoxyCodeLine{00024\ \textcolor{comment}{/*}}
-\DoxyCodeLine{00025\ \textcolor{comment}{*\ @brief\ Holds\ all\ the\ info\ of\ a\ piece\ (all\ of\ it's\ square\ in\ a\ vector,\ and\ methods\ that\ allows\ you\ to\ aply\ a\ move\ to\ the\ piece)\ }}
-\DoxyCodeLine{00026\ \textcolor{comment}{*/}}
-\DoxyCodeLine{00027\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpiece}{piece}}\ \{}
-\DoxyCodeLine{00028\ \ \ \ \ \textcolor{keyword}{public}:}
-\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//Constructors\ (take\ the\ piece\ type)}}
-\DoxyCodeLine{00030\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ piece\ constructor,\ takes\ the\ type\ of\ the\ created\ piece}}
-\DoxyCodeLine{00033\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @param\ piece\_type\ enum\ piece\_type,\ the\ type\ of\ the\ piece}}
-\DoxyCodeLine{00034\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00035\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}(piece\_type);}
-\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{\string~piece}}()\ =\ \textcolor{keywordflow}{default};}
-\DoxyCodeLine{00037\ }
-\DoxyCodeLine{00038\ \ \ \ \ \textcolor{comment}{//getters}}
-\DoxyCodeLine{00039\ \ \ \ \ \ \ \ \ piece\_type\ get\_type();}
-\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ get\_cubes();}
-\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ get\_in\_place();}
-\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ get\_speed();}
-\DoxyCodeLine{00043\ }
-\DoxyCodeLine{00044\ \ \ \ \ \textcolor{comment}{//setter}}
-\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_in\_place(\textcolor{keywordtype}{bool}\ in\_place\_);}
-\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_speed(\textcolor{keywordtype}{float}\ speed\_);}
-\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_cubes(std::vector<std::pair<float,\ float>>\ cubes\_);}
-\DoxyCodeLine{00048\ }
-\DoxyCodeLine{00049\ \ \ \ \ \textcolor{comment}{//methods}}
-\DoxyCodeLine{00050\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ aplies\ a\ shift\ of\ the\ size\ of\ a\ cube\ to\ all\ the\ cubes\ on\ the\ right}}
-\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ go\_right();}
-\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ aplies\ a\ shift\ of\ the\ size\ of\ a\ cube\ to\ all\ the\ cubes\ on\ the\ left}}
-\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ go\_left();}
-\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00059\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ aplies\ a\ shift\ of\ the\ given\ size\ to\ all\ the\ cubes\ to\ the\ bottom}}
-\DoxyCodeLine{00060\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @param\ down\ the\ amount\ of\ the\ down\ shift}}
-\DoxyCodeLine{00061\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}\ \ \ \ \ \ \ }
-\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ go\_down(\textcolor{keywordtype}{float}\ down);}
-\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00064\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ delets\ all\ the\ cubes\ on\ a\ certain\ row\ updates\ all\ the\ cubes\ that\ were\ above\ if\ they\ placed}}
-\DoxyCodeLine{00065\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @param\ row\ the\ row\ where\ the\ elements\ have\ to\ be\ deleted}}
-\DoxyCodeLine{00066\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ delete\_row(\textcolor{keywordtype}{int}\ row);}
-\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00069\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ rotates\ the\ piece}}
-\DoxyCodeLine{00070\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ rotate();}
-\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*}}
-\DoxyCodeLine{00073\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @brief\ updates\ the\ piece}}
-\DoxyCodeLine{00074\ \textcolor{comment}{\ \ \ \ \ \ \ \ *\ @param\ dt\ the\ time\ that\ has\ passed\ since\ the\ last\ update}}
-\DoxyCodeLine{00075\ \textcolor{comment}{\ \ \ \ \ \ \ \ */}}
-\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ update(\textcolor{keywordtype}{float}\ dt);}
-\DoxyCodeLine{00077\ }
-\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keyword}{private}:}
-\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ cubes;}
-\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ piece\_type\ type;}
-\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_place;}
-\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ gravity;}
-\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ speed;}
-\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ min\_speed;}
-\DoxyCodeLine{00085\ \};}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00028\ \textcolor{keyword}{class\ }\mbox{\hyperlink{classpiece}{piece}}\ \{}
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{comment}{//Constructors\ (take\ the\ piece\ type)}}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00036\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{piece}}(piece\_type);}
+\DoxyCodeLine{00037\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{classpiece}{\string~piece}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \ \ \ \ \textcolor{comment}{//getters}}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ \ \ piece\_type\ get\_type();}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ get\_cubes();}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ get\_in\_place();}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ get\_speed();}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//setter}}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_in\_place(\textcolor{keywordtype}{bool}\ in\_place\_);}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_speed(\textcolor{keywordtype}{float}\ speed\_);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ set\_cubes(std::vector<std::pair<float,\ float>>\ cubes\_);}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{comment}{//methods}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_a3385294dd3aa6e03238c996f595743a0}{go\_right}}(std::vector<std::vector<int>>\ board);}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_ab4e8bf94c06e08e5a4e5e86f77558f1d}{go\_left}}(std::vector<std::vector<int>>\ board);}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_a7f93088ba9154e020b6d8fe74d932133}{go\_down}}(\textcolor{keywordtype}{float}\ down);}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_a78e07ffb4f574307a1f601b5cf7ed905}{delete\_row}}(\textcolor{keywordtype}{int}\ row);}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_aa4fb978565ffaf1e061fcbbc0bcec2d5}{rotate}}(std::vector<std::vector<int>>\ board);}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{classpiece_ad059df725661c5e6d06a7caa7bf4a183}{update}}(\textcolor{keywordtype}{float}\ dt);}
+\DoxyCodeLine{00078\ }
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ std::vector<std::pair<float,\ float>>\ cubes;}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ piece\_type\ type;}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{bool}\ in\_place;}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ gravity;}
+\DoxyCodeLine{00084\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ speed;}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ min\_speed;}
+\DoxyCodeLine{00086\ \};}
 
 \end{DoxyCode}
